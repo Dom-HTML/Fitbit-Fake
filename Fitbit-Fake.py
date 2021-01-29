@@ -204,16 +204,31 @@ xStep = 5
 goto(-250, -160)
 print("plotting...") 
 
-for i in yPoints:    
-    pendown()
-    curY = i
-    randNum = random.randint(-5, 10)
-    randY = i + randNum
-    print(curX, ",",  randY)
-    goto(curX, randY)
-    curX  = curX + xStep
-    time.sleep(0.25)
+option = input("do you want to use presets or plot your own (enter preset or own) = ").lower()
 
+if option == "preset":
+    for i in yPoints:    
+        pendown()
+        curY = i
+        randNum = random.randint(-5, 10)
+        randY = i + randNum
+        print(curX, ",",  randY)
+        goto(curX, randY)
+        curX  = curX + xStep
+        time.sleep(0.25)#comment out to make plotting faster or change 
+else:
+    x = 0
+    while x < len(yPoints):
+        pendown()
+        Y = input("enter next y point(50=170bpm/-160=70bpm) or undo = ")
+        if Y == "undo":
+            undo()
+        else:
+            print(curX, ",",  Y)
+            goto(curX, int(Y))
+            curX  = curX + xStep
+            time.sleep(0.25)#comment out to make plotting faster or change
+            x = x + 1
 penup()
 goto(-1000, 1000)
 
